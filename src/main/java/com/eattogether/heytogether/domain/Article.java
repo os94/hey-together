@@ -10,24 +10,25 @@ public class Article {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @OneToOne
     private Shop shop;
 
-    @Column(nullable = false)
+    @OneToOne
     private Place orderPlace;
 
     @Column(nullable = false)
     private LocalDateTime deadline;
 
-    @OneToMany
-    @Column(nullable = false)
-    private List<Order> orders;
+    @OneToMany(mappedBy = "article")
+    private List<Orders> orders;
 
     @ManyToOne
-    @Column(nullable = false)
     private User author;
 
-    public Article(Shop shop, Place orderPlace, LocalDateTime deadline, List<Order> orders, User author) {
+    public Article() {
+    }
+
+    public Article(Shop shop, Place orderPlace, LocalDateTime deadline, List<Orders> orders, User author) {
         this.shop = shop;
         this.orderPlace = orderPlace;
         this.deadline = deadline;

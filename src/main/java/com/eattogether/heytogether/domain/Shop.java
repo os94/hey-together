@@ -9,17 +9,20 @@ public class Shop {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @OneToOne
     private Place place;
 
-    @Column(nullable = false)
+    @OneToMany
     private List<Menu> menus;
 
     @Column
     private int minimumOrderPrice;
 
-    @Column
+    @OneToOne
     private Money deliveryTip;
+
+    public Shop() {
+    }
 
     public Shop(Place place, List<Menu> menus, int minimumOrderPrice, Money deliveryTip) {
         this.place = place;
