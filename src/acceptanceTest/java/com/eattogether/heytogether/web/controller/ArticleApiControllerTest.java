@@ -1,9 +1,9 @@
 package com.eattogether.heytogether.web.controller;
 
-import com.eattogether.heytogether.service.dto.ArticleRequest;
 import com.eattogether.heytogether.domain.Orders;
 import com.eattogether.heytogether.domain.Place;
 import com.eattogether.heytogether.domain.Shop;
+import com.eattogether.heytogether.service.dto.ArticleRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,6 +20,8 @@ import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
 
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessRequest;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.subsectionWithPath;
 import static org.springframework.restdocs.webtestclient.WebTestClientRestDocumentation.document;
@@ -52,6 +54,7 @@ public class ArticleApiControllerTest {
                 .expectBody()
                 .consumeWith(document(
                         "articles/post",
+                        preprocessRequest(prettyPrint()),
                         requestFields(
                                 subsectionWithPath("place").description("배달 받을 위치"),
                                 subsectionWithPath("shop").description("주문할 가게"),
