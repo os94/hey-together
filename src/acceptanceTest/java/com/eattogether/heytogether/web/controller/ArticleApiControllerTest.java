@@ -21,7 +21,8 @@ import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
 
-import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
+import static org.springframework.restdocs.payload.PayloadDocumentation.subsectionWithPath;
 import static org.springframework.restdocs.webtestclient.WebTestClientRestDocumentation.document;
 import static org.springframework.restdocs.webtestclient.WebTestClientRestDocumentation.documentationConfiguration;
 
@@ -55,12 +56,12 @@ public class ArticleApiControllerTest {
                 .consumeWith(document(
                         "articles/post",
                         requestFields(
-                                fieldWithPath("place").description("배달받을 위치"),
-                                fieldWithPath("shop").description("주문할 가게"),
-                                fieldWithPath("minimumOrderPrice").description("최소 주문 금액"),
-                                fieldWithPath("deliveryTip").description("배달 팁"),
-                                fieldWithPath("orders").description("주문 목록"),
-                                fieldWithPath("deadline").description("모집 마감 시간")
+                                subsectionWithPath("place").description("배달 받을 위치"),
+                                subsectionWithPath("shop").description("주문할 가게"),
+                                subsectionWithPath("minimumOrderPrice").description("최소 주문 금액"),
+                                subsectionWithPath("deliveryTip").description("배달 팁"),
+                                subsectionWithPath("orders").description("주문 목록"),
+                                subsectionWithPath("deadline").description("모집 마감 시간")
                         )));
     }
 }
