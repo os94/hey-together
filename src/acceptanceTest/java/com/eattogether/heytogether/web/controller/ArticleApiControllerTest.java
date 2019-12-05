@@ -1,7 +1,6 @@
 package com.eattogether.heytogether.web.controller;
 
-import com.eattogether.heytogether.ArticleDto;
-import com.eattogether.heytogether.domain.Money;
+import com.eattogether.heytogether.service.dto.ArticleRequest;
 import com.eattogether.heytogether.domain.Orders;
 import com.eattogether.heytogether.domain.Place;
 import com.eattogether.heytogether.domain.Shop;
@@ -44,13 +43,11 @@ public class ArticleApiControllerTest {
     @Test
     @DisplayName("게시글 등록")
     void create_article() {
-        ArticleDto articleDto = new ArticleDto(
-                new Place(), new Shop(), new Money(), new Money(), new Orders(), LocalDateTime.now()
-        );
+        ArticleRequest articleRequest = new ArticleRequest(new Place(), new Shop(), new Orders(), LocalDateTime.now());
 
         webTestClient.post().uri("/articles")
                 .accept(MediaType.APPLICATION_JSON)
-                .body(Mono.just(articleDto), ArticleDto.class)
+                .body(Mono.just(articleRequest), ArticleRequest.class)
                 .exchange().expectStatus().isOk()
                 .expectBody()
                 .consumeWith(document(
@@ -58,8 +55,6 @@ public class ArticleApiControllerTest {
                         requestFields(
                                 subsectionWithPath("place").description("배달 받을 위치"),
                                 subsectionWithPath("shop").description("주문할 가게"),
-                                subsectionWithPath("minimumOrderPrice").description("최소 주문 금액"),
-                                subsectionWithPath("deliveryTip").description("배달 팁"),
                                 subsectionWithPath("orders").description("주문 목록"),
                                 subsectionWithPath("deadline").description("모집 마감 시간")
                         )));

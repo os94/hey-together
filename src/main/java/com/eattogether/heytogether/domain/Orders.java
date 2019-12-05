@@ -15,7 +15,7 @@ public class Orders {
     @ManyToOne
     private User user;
 
-    @ManyToOne
+    @OneToOne
     private Article article;
 
     public Orders() {

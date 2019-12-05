@@ -2,7 +2,6 @@ package com.eattogether.heytogether.domain;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 public class Article {
@@ -19,21 +18,19 @@ public class Article {
     @Column(nullable = false)
     private LocalDateTime deadline;
 
-    @OneToMany(mappedBy = "article")
-    private List<Orders> orders;
+    @OneToOne
+    private Orders orders;
 
-    @ManyToOne
-    private User author;
+    // User author 필드 추가 예정
 
     public Article() {
     }
 
-    public Article(Shop shop, Place orderPlace, LocalDateTime deadline, List<Orders> orders, User author) {
+    public Article(Shop shop, Place orderPlace, LocalDateTime deadline, Orders orders) {
         this.shop = shop;
         this.orderPlace = orderPlace;
         this.deadline = deadline;
         this.orders = orders;
-        this.author = author;
     }
 
     public Long getId() {
@@ -68,19 +65,11 @@ public class Article {
         this.deadline = deadline;
     }
 
-    public List<Orders> getOrders() {
+    public Orders getOrders() {
         return orders;
     }
 
-    public void setOrders(List<Orders> orders) {
+    public void setOrders(Orders orders) {
         this.orders = orders;
-    }
-
-    public User getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(User author) {
-        this.author = author;
     }
 }
